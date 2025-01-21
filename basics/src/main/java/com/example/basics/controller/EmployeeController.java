@@ -3,6 +3,7 @@ import com.example.basics.dto.EmployeeDTO;
 import com.example.basics.model.Employee;
 import com.example.basics.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,9 +16,8 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping ("/")
-    public Employee createEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        Employee employee = new Employee(null, employeeDTO.getName(), employeeDTO.getDepartment(), employeeDTO.getSalary());
-        return employeeService.saveEmployee(employee);
+    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employeeDTO) {
+        return ResponseEntity.ok(employeeService.saveEmployee(employeeDTO));
     }
 
     @GetMapping
